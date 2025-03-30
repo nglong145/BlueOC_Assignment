@@ -3,10 +3,11 @@ const { requireToken, requireAdmin } = require("./middleware");
 const { body, validationResult } = require("express-validator");
 const route = express.Router();
 const bcrypt = require("bcrypt");
-const JWT_SECRET = "Hello";
 const jwt = require("jsonwebtoken");
 
 route.use("/users", requireToken);
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 let users = [
   {
