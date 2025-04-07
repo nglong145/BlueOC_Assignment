@@ -1,0 +1,20 @@
+3.1. Write an SQL query to fetch the top 5 most borrowed books in the last 6 months
+SELECT 
+    bh.book_id,
+    b.title,
+    COUNT(bh.book_id) AS borrow_count
+FROM 
+    borrowinghistory bh
+JOIN 
+    books b ON bh.book_id = b.book_id
+WHERE 
+    bh.borrowed_date >= CURRENT_DATE - INTERVAL '6 months'
+GROUP BY 
+    bh.book_id, b.title
+ORDER BY 
+    borrow_count DESC
+LIMIT 5;
+
+
+3.2. Create an index on the table to optimize queries for finding all borrowing transactions of a specific user (UserID)
+CREATE INDEX idx_user_borrowinghistory ON borrowinghistory(user_id);
